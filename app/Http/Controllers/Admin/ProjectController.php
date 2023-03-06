@@ -52,14 +52,14 @@ class ProjectController extends Controller
         $slug = Project::generateSlug($request->title);
 
         $data['slug'] = $slug;
-        
 
+        
+        
         $newProject = new Project();
-
-        $newProject->save();
-
-
         
+        $newProject->fill($data);
+        
+        $newProject->save();
 
         if($request->has('technologies')){
             $newProject->technologies()->attach($request->technologies);
