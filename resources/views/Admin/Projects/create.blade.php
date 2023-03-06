@@ -29,6 +29,15 @@
                             @endforeach
                         </select>
                     </div>
+                    <div class="form-group my-2">
+                        <div class="fs-2 fw-semibold">Tecnologie</div>
+                        @foreach ($technologies as $technology)
+                        <div class="form-check @error ('technologies') is-invalid @enderror">
+                            <input type="checkbox" value="{{$technology->id}}" name="technologies[]">
+                            <label class="form-check-label">{{$technology->name}}</label>
+                        </div> 
+                        @endforeach
+                    </div>
                     <button type="submit" class="btn btn-success">Salva</button>
                 </form>
             </div>
