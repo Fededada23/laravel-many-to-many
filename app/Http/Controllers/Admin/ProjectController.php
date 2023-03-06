@@ -49,21 +49,17 @@ class ProjectController extends Controller
 
         $data = $request->validated();
         
-        //$newProject = new Project();
-
-        
         $slug = Project::generateSlug($request->title);
 
-
         $data['slug'] = $slug;
-
         
         $newProject = Project::create($data);
 
-        //$newProject->fill($data);
-        
+        if($request->has('technologies')){
+            $newProject->technologies()->attach($request->technologies);
+        }
 
-        //$newProject->save();
+        
 
         return redirect()->route('admin.projects.index')->with('message', 'Nuovo progetto creato');
     }
