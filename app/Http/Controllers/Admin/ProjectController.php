@@ -53,7 +53,12 @@ class ProjectController extends Controller
 
         $data['slug'] = $slug;
         
-        $newProject = Project::create($data);
+
+        $newProject = new Project();
+
+        $newProject->save();
+
+
         
 
         if($request->has('technologies')){
