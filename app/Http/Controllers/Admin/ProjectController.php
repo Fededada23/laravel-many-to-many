@@ -46,13 +46,14 @@ class ProjectController extends Controller
      */
     public function store(StorePostRequest $request)
     {   
+
         $data = $request->validated();
         
-        $newProject = new Project();
-        
-        $newProject->fill($data);
+        $slug = Project::generateSlug($request->title);
 
-        $newProject->save();
+        $data['slug'] = $slug;
+        
+        $newProject = Project::create($data);
         
 
         if($request->has('technologies')){
