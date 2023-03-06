@@ -43,6 +43,22 @@
                         <div class="text-danger">{{$message}}</div>
                         @enderror
                     </div>
+                    <div class="form-group m-2">
+                        <div class="fs-2 fw-semibold">Technologies</div>
+                        @foreach ($technologies as $technology)
+                        <div class="form-check @error('technologies') is-invalid @enderror">
+                            @if($errors->any())
+                            <input type="checkbox" value="{{$technology->id}}" name="technologies[]" {{in_array($technology->id, old('technologies', [])) ? 'checked' : ''}} class="form-check-input">
+                            <label class="form-check-label">{{$technology->name}}</label>
+                            @else
+                            <input type="checkbox" value="{{$technology->id}}" name="technologies[]" {{$project->technologies->contains($technology) ? 'checked' : ''}} class="form-check-input">
+                            @endif <label class="form-check-label">{{$technology->name}}</label>
+                        </div>
+                        @endforeach
+                        @error('technologies')
+                        <div class="text-danger">{{$message}}</div>
+                        @enderror
+                    </div>
                     <div>
                         <button type="submit" class="btn btn-primary">Modifica</button>
                     </div>

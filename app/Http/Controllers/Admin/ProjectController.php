@@ -46,14 +46,14 @@ class ProjectController extends Controller
      */
     public function store(StorePostRequest $request)
     {   
-
         $data = $request->validated();
         
-        $slug = Project::generateSlug($request->title);
-
-        $data['slug'] = $slug;
+        $newProject = new Project();
         
-        $newProject = Project::create($data);
+        $newProject->fill($data);
+
+        $newProject->save();
+        
 
         if($request->has('technologies')){
             $newProject->technologies()->attach($request->technologies);
@@ -84,7 +84,8 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $types = Type::all();
-        return view('admin.projects.edit', compact('project', 'types'));
+        $technologies = Technology::all();
+        return view('admin.projects.edit', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -102,6 +103,10 @@ class ProjectController extends Controller
 
         $project->update($data);
 
+        if($request->has('technologies')){
+            $project->technologies()->sync($request->technologies);
+        }
+
         return redirect()->route('admin.projects.index')->with('message', 'Modifica al progetto eseguita');
     }
 
@@ -113,6 +118,8 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        $project->technologies()->sync([]);
+
         $project->delete();
 
         return redirect()->route('admin.projects.index')->with('message','Il progetto è stato eliminato');
