@@ -17,6 +17,13 @@
             <p>{{$project->description}}</p>
             <label class="d-block"><strong>Categoria: </strong></label>
             <p>{{$project->type ? $project->type->name : 'Senza categoria'}}</p>
+            <p><strong>Technologies:</strong>
+                @forelse ($project->technologies as $technology)
+                {{$technology->name}}
+                @empty
+                Nessuna tecnologia associata al Post    
+                @endforelse
+            </p>
         </div>
     </div>
 @endsection

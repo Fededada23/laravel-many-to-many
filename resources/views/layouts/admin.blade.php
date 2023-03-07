@@ -52,10 +52,7 @@
                                     <i class="fa-solid fa-list fa-lg fa-fw"></i>Technologies
                                 </a>
                             </li>
-
                         </ul>
-
-
                     </div>
                 </nav>
 
