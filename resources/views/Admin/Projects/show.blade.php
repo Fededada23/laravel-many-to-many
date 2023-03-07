@@ -19,7 +19,7 @@
             <p>{{$project->type ? $project->type->name : 'Senza categoria'}}</p>
             <p><strong>Technologies:</strong>
                 @forelse ($project->technologies as $technology)
-                {{$technology->name}}
+                {{$technology->name}},
                 @empty
                 Nessuna tecnologia associata al Post    
                 @endforelse
